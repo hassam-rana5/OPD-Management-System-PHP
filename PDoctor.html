@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor</title>
+</head>
+<body bgcolor="#3483fa" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="height: 700px; width: 1300px; background-color: white; margin: auto; margin-top: 25px; border-radius: 20px;padding: 10px;">
+        <table style="float: right;">
+            <tr>
+                <th><h2><a href="PatientMain.html" style="text-decoration: none; color:rgb(0, 100, 100); margin: 7px;">Home</a></h2></th>
+                <th><h2><a href="PDoctor.html" style="text-decoration: none; color:rgb(0, 100, 100); margin: 7px;">Doctor</a></h2></th>
+                <th><h2><a href="PAppoint.html" style="text-decoration: none; color:rgb(0, 100, 100); margin: 7px;">Appointment</a></h2></th>
+                <th><h2><a href="PPrescription.html" style="text-decoration: none; color:rgb(0, 100, 100); margin: 7px;">Prescription</a></h2></th>
+                <th><h2><a href="login.html" style="text-decoration: none; color:rgb(0, 100, 100); margin: 7px;">Logout</a></h2></th>
+            </tr>
+        </table>
+        <div style="margin-top: 100px; margin-left: 30px;">
+            <h1>Doctors</h1>
+        <hr>
+        
+        <br>
+            
+                <table border=0 width="50%">
+                <tr >
+                    <b>
+                        <font color="#000080">
+                            <td><font color="#000080"><b>Name</b></font></td>
+                            <td><font color="#000080"><b>Qualification</b></font></td>
+                            <td><font color="#000080"><b>From</b></font></td>
+                            <td><font color="#000080"><b>Till</b></font></td>                      
+                        </font>
+                    </b>
+                </tr>
+                            <%
+            ResponseDto r = (ResponseDto)session.getAttribute("contacts");
+            ArrayList results = r.getData();
+           
+            if(results.size()>0) {
+                for(int i=0; i<results.size(); i++) {
+                    PersonDto  p = (PersonDto)(results.get(i));
+                    out.print(
+                            "<tr>" +
+                            "<td>" +
+                            p.getName() + 
+                            "</td>" +
+                            "<td>" +
+                            p.getQualification() + 
+                            "</td>" 
+                            "<td>" +
+                            p.getStime() + 
+                            "</td>" +
+                            "<td>" +
+                            p.getEtime() + 
+                            "</td>" );
+                            String actionid="del";
+                            String pageid="personinfo";
+                            
+                            %>
+                            <td>
+                            <button style="background: rgb(1, 187, 47);"><a href = "edit.jsp?id=<%=p.getId()%>&name=<%=p.getName()%>&address=<%=p.getAddress()%>" style="text-decoration: none; color:white ;">Book Appointment</a></button>
+                        </td>
+                            <% out.print(
+                            "</tr>"
+                            );
+                }
+            } else {
+                out.println(com.mycompany.utility.Constants.REC_NOT_FOUND);
+            }
+            %>
+        
+        </table>
+        </div>
+
+    </div>
+</body>
+</html>
